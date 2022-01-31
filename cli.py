@@ -33,7 +33,7 @@ def randomized(image_list: ImageList, number: int = 10) -> ImageList:
     """
     # In place randomization
     random.shuffle(image_list)
-    return image_list[:max(number, len(image_list)-1)]
+    return image_list[:min(number, len(image_list)-1)]
 
 
 def save_images(images: ImageList, directory: str = "./") -> Iterable[str]:
@@ -48,9 +48,9 @@ def save_images(images: ImageList, directory: str = "./") -> Iterable[str]:
 
 @click.command()
 @click.argument("manifest", type=click.STRING)
-@click.option("directory", type=click.Path(exists=True, dir_okay=True, file_okay=False), default="./",
+@click.option("--directory", type=click.Path(exists=True, dir_okay=True, file_okay=False), default="./",
               help="Directory where to save the images")
-@click.option("number", type=int, help="Number of images to save", default=10)
+@click.option("--number", type=int, help="Number of images to save", default=10)
 def cli(manifest, directory, number):
     """
     Example https://gallica.bnf.fr/iiif/ark:/12148/bpt6k12401693/manifest.json
